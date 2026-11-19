@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast Cover Studio — GTA-style cover art maker</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">NC</span> NEON COAST <em>Cover Studio</em></div>
+  <p class="tagline">Your photo + a caption → a Vice-style sunset cover, exported as a PNG. 100% offline — photos never leave your machine.</p>
+</header>
+<main class="studio">
+  <section class="stage">
+    <div class="canvas-wrap">
+      <canvas id="cover" width="720" height="720" aria-label="Cover preview — click a panel to select it"></canvas>
+      <p class="stage-hint">Click a panel to select it, then pick its photo below. Drag photos onto the cover to add them.</p>
+    </div>
+    <div class="tray" id="tray" aria-label="Your photos"></div>
+    <div class="tray-actions">
+      <label class="upload-btn">+ Add photos <input id="photo" type="file" accept="image/*" multiple hidden></label>
+      <button id="fillAll" type="button">Fill all panels with selected photo</button>
+      <button id="shuffle" type="button">Shuffle photos</button>
+    </div>
+  </section>
+  <aside class="panel">
+    <div class="group">
+      <h2>1 · Size</h2>
+      <div class="seg" id="sizeSeg" role="group" aria-label="Export size">
+        <button type="button" data-size="square" class="on">Square 1080²</button>
+        <button type="button" data-size="story">Story 1080×1350</button>
+        <button type="button" data-size="wide">Wide 1920×1080</button>
+      </div>
+    </div>
+    <div class="group">
+      <h2>2 · Layout</h2>
+      <div class="seg wrap" id="layoutSeg" role="group" aria-label="Panel layout">
+        <button type="button" data-layout="grid" class="on">Panel Grid</button>
+        <button type="button" data-layout="hero">Hero + Three</button>
+        <button type="button" data-layout="tilted">Tilted Snaps</button>
+        <button type="button" data-layout="bleed">Full Bleed</button>
+        <button type="button" data-layout="nine">Nine-Panel</button>
+      </div>
+      <p class="hint" id="layoutHint">Four panels, classic poster grid</p>
+    </div>
+    <div class="group">
+      <h2>3 · Sunset grade</h2>
+      <div class="swatches" id="gradeSeg" role="group" aria-label="Colour grade">
+        <button type="button" data-grade="sunset" class="on" style="--g1:#5b1e6e;--g2:#ff7a3d">Sunset</button>
+        <button type="button" data-grade="neon" style="--g1:#0a2a4a;--g2:#ff2d95">Neon Vice</button>
+        <button type="button" data-grade="dusk" style="--g1:#1a1440;--g2:#ffaa6e">Palm Dusk</button>
+        <button type="button" data-grade="noir" style="--g1:#111;--g2:#e8ddd2">Mono Noir</button>
+        <button type="button" data-grade="heat" style="--g1:#3a0a10;--g2:#ffb83c">Heatwave</button>
+      </div>
+    </div>
+    <div class="group">
+      <h2>4 · Lettering</h2>
+      <label class="field">Title
+        <input id="title" type="text" maxlength="24" value="NEON COAST">
+      </label>
+      <label class="field">Subtitle (script)
+        <input id="subtitle" type="text" maxlength="40" value="golden hour getaway">
+      </label>
+      <div class="seg" id="titleStyleSeg" role="group" aria-label="Title style">
+        <button type="button" data-tstyle="sunset" class="on">Sunset fill</button>
+        <button type="button" data-tstyle="white">White</button>
+        <button type="button" data-tstyle="neon">Neon</button>
+      </div>
+      <div class="heat-row">
+        <span>Heat</span>
+        <div class="seg" id="heatSeg" role="group" aria-label="Heat meter stars">
+          <button type="button" data-heat="3">★★★</button>
+          <button type="button" data-heat="4">★★★★</button>
+          <button type="button" data-heat="5" class="on">★★★★★</button>
+        </div>
+      </div>
+      <label class="check"><input id="badge" type="checkbox" checked> Badge ribbon</label>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="frame" type="checkbox" checked> White poster frame</label>
+    </div>
+    <div class="group">
+      <h2>5 · Selected panel <span id="panelName">1</span></h2>
+      <label class="field">Zoom <span id="zoomVal">1.0×</span>
+        <input id="zoom" type="range" min="1" max="3" step="0.05" value="1">
+      </label>
+      <label class="field">Pan left / right
+        <input id="panX" type="range" min="-0.6" max="0.6" step="0.02" value="0">
+      </label>
+      <label class="field">Pan up / down
+        <input id="panY" type="range" min="-0.6" max="0.6" step="0.02" value="0">
+      </label>
+    </div>
+    <div class="actions">
+      <button id="undo" type="button">↩ Undo</button>
+      <button id="redo" type="button">Redo ↪</button>
+      <button id="export" type="button" class="primary">⬇ Export PNG</button>
+    </div>
+    <p id="status" role="status"></p>
+  </aside>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
